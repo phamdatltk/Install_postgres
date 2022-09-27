@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Update cache
+      apt:
+        update_cache: true
+        upgrade: yes
+
+
+- hosts: all
+  become: true
+  roles:
+    - base
+
