@@ -28,3 +28,58 @@
 - name: Install postgresSQL
   apt:
     name: "{{ postgres_package }}"
+
+- name: Install essential package for postgresql
+  package:
+    name: python3-psycopg2
+    state: present
+
+- name: Create db user admin1
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    state: present
+    name: admin1
+    password: 280102
+
+- name: Provide permission
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: admin1
+    role_attr_flags: SUPERUSER,CREATEDB
+
+- name: Create admin1's database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: admin1_db
+    state: present
+    owner: admin1
+
+- name: Create db user admin2
+  community.postgresql.postgresql_user:
+    state: present
+    name: admin2
+    password: 280102
+  become: true
+  become_user: postgres
+
+- name: Provide permission
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: admin2
+    role_attr_flags: SUPERUSER,CREATEDB
+
+- name: Create admin2's database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: admin2_db
+    state: present
+    owner: admin2
+
+
+
+
