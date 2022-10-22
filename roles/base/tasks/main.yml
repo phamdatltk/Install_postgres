@@ -81,5 +81,13 @@
     owner: admin2
 
 
-
-
+- name: Create admin1's table in admin1_db
+  become: true
+  become_user: postgres
+  postgresql_table:
+    db: admin1_db
+    name: admin1_table
+    columns:
+      - id serial primary key
+      - num bigint
+      - stories text
