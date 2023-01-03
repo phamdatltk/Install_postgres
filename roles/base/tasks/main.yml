@@ -27,7 +27,7 @@
 
 - name: Install postgresSQL
   apt:
-    name: "{{ postgres_package }}"
+    name: postgresql-14
 
 - name: Install essential package for postgresql
   package:
